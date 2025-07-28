@@ -527,7 +527,7 @@ body {
 
 .input:focus {
   outline: none;
-  border-color: #8b5cf6;
+  border-color:linear-gradient(135deg, #f97316 0%, #ea580c 100%);
   background: rgba(255, 255, 255, 0.08);
   box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
 }
@@ -537,7 +537,7 @@ body {
 }
 
 .submit-button {
-  background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
   color: white;
   border: none;
   padding: 18px 36px;
@@ -674,7 +674,9 @@ body {
 
 /* Ultra-wide screen support */
 @media (min-width: 2000px) {
+
   .top-container,
+  
   .bottom-container {
     max-width: 1800px;
     padding: 100px 80px;
@@ -689,7 +691,9 @@ body {
   }
   
   .form-container {
+
     max-width: 1000px;
+
   }
 }
 
@@ -709,6 +713,7 @@ body {
 
 /* Fix for iOS Safari viewport issues */
 @supports (-webkit-touch-callout: none) {
+  
   .app {
     min-height: -webkit-fill-available;
   }
@@ -719,6 +724,7 @@ body {
   }
 }
 
+/* Debug Message Styles */
 .debug-message {
   margin-top: 30px;
   padding: 20px;
@@ -728,11 +734,13 @@ body {
 }
 
 .debug-message h3 {
+
   color: white;
   font-size: 18px;
   font-weight: 700;
   margin-bottom: 15px;
   letter-spacing: 0.5px;
+  
 }
 
 .debug-content {
@@ -747,4 +755,184 @@ body {
   white-space: pre-wrap;
   word-break: break-all;
   border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.quiz-page {
+
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  padding: 40px 20px;
+
+}
+
+.quiz-container {
+
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+
+}
+
+.quiz-header {
+
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: white;
+  padding: 30px;
+  text-align: center;
+
+}
+
+.quiz-header h1 {
+
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  letter-spacing: -1px;
+
+}
+
+.quiz-header p {
+
+  font-size: 1.1rem;
+  opacity: 0.9;
+
+}
+
+.quiz-content {
+
+  padding: 40px;
+
+}
+
+.question-card {
+
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 30px;
+  margin-bottom: 30px;
+  transition: all 0.3s ease;
+
+}
+
+.question-card:hover {
+
+  border-color: #f97316;
+  box-shadow: 0 10px 30px rgba(249, 115, 22, 0.1);
+
+}
+
+.question-number {
+
+  display: inline-block;
+  
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 40px;
+  font-weight: 700;
+  margin-bottom: 20px;
+
+}
+
+.question-text {
+
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+.choices-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.choice-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  color: #475569;
+}
+
+.choice-item:hover {
+  border-color: #f97316;
+  background: #f8fafc;
+  transform: translateX(5px);
+}
+
+.choice-item input[type="radio"] {
+  margin-right: 15px;
+  width: 18px;
+  height: 18px;
+  accent-color: #f97316;
+}
+
+.choice-item input[type="radio"]:checked + span {
+  color: #f97316;
+  font-weight: 600;
+}
+
+/* Loading Animation */
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.loading-card {
+  height: 200px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+}
+
+/* Error State */
+.error-message {
+  text-align: center;
+  padding: 60px 20px;
+  color: #ef4444;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* Responsive Design for Quiz Page */
+@media (max-width: 768px) {
+  .quiz-container {
+    margin: 0 10px;
+  }
+  
+  .quiz-content {
+    padding: 20px;
+  }
+  
+  .question-card {
+    padding: 20px;
+  }
+  
+  .quiz-header h1 {
+    font-size: 2rem;
+  }
 }
