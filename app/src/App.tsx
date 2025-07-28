@@ -1,12 +1,21 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
   const [topic, setTopic] = useState('')
   const [field, setField] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [message, setMessage] = useState('')
+  const [debugMsg, setDebugMsg] = useState<string | null>(null)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    fetch('http://127.0.0.1:5000/api/message')
+      .then(res => res.json())
+      .then(data => setMessage(data.message))
+      .catch(err => console.error(err));
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!field.trim()) {
       alert('Please enter a field of study')
@@ -17,6 +26,19 @@ function App() {
       return
     }
     setIsLoading(true)
+
+    try {
+      const res = await fetch('http://127.0.0.1:5000/api/random');
+      if (!res.ok) throw new Error(`bad status ${res.status}`);
+      const { msg } = await res.json();
+      console.log("backend says:", msg);
+      setDebugMsg(msg);
+    } catch (err) {
+      console.error(err);
+      setDebugMsg("⚠️ API call failed – check console/logs");
+    } finally {
+      setIsLoading(false)
+    }
 
     console.log('Generating quiz for:', field, topic)
   }
@@ -32,6 +54,7 @@ function App() {
           <div className="branding">
 
             <div className="brand-icon">TO BE DESIGNED</div>
+            
             <div className="brand-text">
               <div className="brand-name">QuizAI(Trash Name IK)</div>
               <div className="brand-subtitle">For Students & Educators</div>
@@ -47,6 +70,7 @@ function App() {
               <span className="cta-icon">🚀</span>
               <span>Get Started Free</span>
             </button>
+            <p>{message}</p>
 
           </div>
 
@@ -159,6 +183,15 @@ function App() {
               {isLoading ? 'Generating Quiz...' : 'Generate Study Quiz'}
             </button>
           </form>
+
+          {debugMsg && (
+            <div className="debug-message">
+              <h3>Debug Response:</h3>
+              <pre className="debug-content">
+                {debugMsg}
+              </pre>
+            </div>
+          )}
         </div>
       </section>
     </div>

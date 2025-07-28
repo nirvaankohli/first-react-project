@@ -243,7 +243,7 @@ body {
 }
 
 .window-title {
-  
+
   color: white;
   font-weight: 700;
   font-size: 18px;
@@ -311,7 +311,6 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Bottom Section - Dark Theme */
 .bottom-section {
   background: #0f172a;
   padding: 120px 60px;
@@ -327,7 +326,6 @@ body {
   width: 100%;
 }
 
-/* Key Number */
 .key-number {
   text-align: center;
   margin-bottom: 100px;
@@ -353,15 +351,17 @@ body {
   text-transform: uppercase;
 }
 
-/* Feature Highlights */
 .feature-highlights {
+
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 48px;
   margin-bottom: 100px;
+
 }
 
 .feature-block {
+  
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
@@ -717,4 +717,34 @@ body {
   .bottom-section {
     min-height: -webkit-fill-available;
   }
+}
+
+.debug-message {
+  margin-top: 30px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.debug-message h3 {
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  letter-spacing: 0.5px;
+}
+
+.debug-content {
+  background: rgba(0, 0, 0, 0.3);
+  color: #10b981;
+  padding: 15px;
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+  font-weight: 600;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  border: 1px solid rgba(16, 185, 129, 0.3);
 }
