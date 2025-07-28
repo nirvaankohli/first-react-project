@@ -10,16 +10,12 @@ function Home() {
   const [field, setField] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [message, setMessage] = useState('')
-  const [debugMsg, setDebugMsg] = useState<string | null>(null)
 
   useEffect(() => {
-
     fetch('http://127.0.0.1:5000/api/message')
-
       .then(res => res.json())
       .then(data => setMessage(data.message))
       .catch(err => console.error(err));
-
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -29,32 +25,45 @@ function Home() {
       return
     }
     if (!topic.trim()) {
-
       alert('Please enter a topic')
-
       return
-
     }
     setIsLoading(true)
 
     try {
 
-      const res = await fetch('http://127.0.0.1:5000/api/random');
-      if (!res.ok) throw new Error(`bad status ${res.status}`);
-      const { msg } = await res.json();
-      console.log("backend says:", msg);
-      setDebugMsg(msg);
+      const res = await fetch('http://127.0.0.1:5000/api/quiz', {
+        
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ field, topic })
+      
+      })
+      
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      const { id, quiz } = await res.json()
+      
+
+      if (quiz && quiz.length > 0 && quiz[0].q.includes("Failed to generate quiz")) {
+
+        alert('Failed to generate quiz. Please check your OpenAI API key and try again.')
+        return
+
+      }
+      
+      navigate(`/quiz/${id}`, { state: { quiz } })
       
     } catch (err) {
-      console.error(err);
-      setDebugMsg("⚠️ API call failed – check console/logs");
-    } finally {
-      setIsLoading(false)
-    }
 
-    console.log('Generating quiz for:', field, topic)
-    // Navigate to quiz page after form submission
-    navigate('/quiz')
+      console.error(err)
+      
+      alert('Failed to generate quiz. Please try again.')
+    
+    } finally {
+
+      setIsLoading(false)
+
+    }
   }
 
   return (
@@ -170,15 +179,6 @@ function Home() {
               {isLoading ? 'Generating Quiz...' : 'Generate Study Quiz'}
             </button>
           </form>
-
-          {debugMsg && (
-            <div className="debug-message">
-              <h3>Debug Response:</h3>
-              <pre className="debug-content">
-                {debugMsg}
-              </pre>
-            </div>
-          )}
         </div>
       </section>
     </div>
@@ -190,7 +190,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/quiz" element={<QuizPage />} />
+        <Route path="/quiz/:id" element={<QuizPage />} />
       </Routes>
     </BrowserRouter>
   );
