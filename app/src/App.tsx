@@ -8,6 +8,8 @@ function Home() {
   const navigate = useNavigate();
   const [topic, setTopic] = useState('')
   const [field, setField] = useState('')
+  const [numQuestions, setNumQuestions] = useState(5)
+  const [showGrade, setShowGrade] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [message, setMessage] = useState('')
 
@@ -36,7 +38,12 @@ function Home() {
         
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ field, topic })
+        body: JSON.stringify({ 
+          field, 
+          topic, 
+          numQuestions, 
+          showGrade 
+        })
       
       })
       
@@ -51,7 +58,7 @@ function Home() {
 
       }
       
-      navigate(`/quiz/${id}`, { state: { quiz } })
+      navigate(`/quiz/${id}`, { state: { quiz, showGrade } })
       
     } catch (err) {
 
@@ -171,6 +178,55 @@ function Home() {
               />
             </div>
 
+            <div className="form-group">
+
+              <label htmlFor="numQuestions">Number of Questions: {numQuestions}</label>
+              
+              <div className="range-container">
+
+                <input
+
+                  type="range"
+                  id="numQuestions"
+                  min="1"
+                  max="30"
+                  value={numQuestions}
+                  onChange={(e) => setNumQuestions(parseInt(e.target.value))}
+                  className="range-input"
+
+                />
+
+                <div className="range-labels">
+
+                  <span>1</span>
+
+                  <span>15</span>
+
+                  <span>30</span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div className="form-group checkbox-group">
+
+              <label className="checkbox-label">
+
+                <input
+
+                  type="checkbox"
+                  checked={showGrade}
+                  onChange={(e) => setShowGrade(e.target.checked)}
+                  className="checkbox-input"
+
+                />
+                <span className="checkbox-text">Show grade after submission</span>
+              
+              </label>
+            </div>
+            
             <button 
               type="submit" 
               className="submit-button"
