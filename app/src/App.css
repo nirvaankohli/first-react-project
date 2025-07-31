@@ -1,4 +1,3 @@
-/* CSS Reset and Viewport Fixes */
 * {
   margin: 0;
   padding: 0;
@@ -12,7 +11,7 @@ html {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -29,7 +28,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Top Section - Light Theme */
 .top-section {
   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   min-height: 100vh;
@@ -49,7 +47,6 @@ body {
   width: 100%;
 }
 
-/* Branding */
 .branding {
   display: flex;
   align-items: center;
@@ -58,16 +55,24 @@ body {
 }
 
 .brand-icon {
-  width: 48px;
-  height: 48px;
-  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  width: calc(48px + 2vw);
+  height: calc(48px + 2vw);
+  background: #ffffff;
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 24px;
-  color: white;
+  color: rgb(255, 255, 255);
   box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+  overflow: hidden;
+}
+
+.logo-image {
+  width: 80%;
+  height: 80%;
+  object-fit: cover;
+  border-radius: 12px;
 }
 
 .brand-text {
@@ -77,32 +82,34 @@ body {
 
 .brand-name {
   font-size: 24px;
-  font-weight: 800;
+  font-weight: 700;
   color: #1e293b;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.02em;
+  font-family: 'Inter', sans-serif;
 }
 
 .brand-subtitle {
   font-size: 16px;
   color: #64748b;
   font-weight: 500;
+  font-family: 'Inter', sans-serif;
 }
 
-/* Hero Content */
 .hero-content {
   text-align: center;
   max-width: 1000px;
-  margin: 0 auto 80px;
+  margin: 0 auto 40px;
   width: 100%;
 }
 
 .main-headline {
   font-size: clamp(2.5rem, 5vw, 5rem);
-  font-weight: 900;
+  font-weight: 700;
   color: #1e293b;
   line-height: 1.1;
   margin-bottom: 48px;
-  letter-spacing: -3px;
+  letter-spacing: -0.02em;
+  font-family: 'Inter', sans-serif;
 }
 
 .cta-button {
@@ -112,7 +119,7 @@ body {
   padding: 20px 40px;
   border-radius: 50px;
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   display: inline-flex;
@@ -120,6 +127,7 @@ body {
   gap: 12px;
   margin-bottom: 48px;
   box-shadow: 0 10px 30px rgba(30, 41, 59, 0.2);
+  font-family: 'Inter', sans-serif;
 }
 
 .cta-button:hover {
@@ -153,7 +161,7 @@ body {
 }
 
 .proof-number {
-  font-weight: 800;
+  font-weight: 700;
   color: #1e293b;
   font-size: 20px;
 }
@@ -225,6 +233,7 @@ body {
   max-width: 1000px;
   margin: 0 auto;
   position: relative;
+  top: -200px;
   z-index: 3;
   border: 1px solid rgba(255, 255, 255, 0.1);
   width: 100%;
@@ -245,8 +254,9 @@ body {
 .window-title {
 
   color: white;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 18px;
+  font-family: 'Inter', sans-serif;
 }
 
 .window-controls {
@@ -281,10 +291,11 @@ body {
 .category h3 {
   color: #1e293b;
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 16px;
   padding-bottom: 8px;
   border-bottom: 2px solid #e2e8f0;
+  font-family: 'Inter', sans-serif;
 }
 
 .quiz-items {
@@ -303,6 +314,7 @@ body {
   transition: all 0.3s ease;
   border: 1px solid #e2e8f0;
   font-weight: 500;
+  font-family: 'Inter', sans-serif;
 }
 
 .quiz-item:hover {
@@ -314,10 +326,14 @@ body {
 .bottom-section {
   background: #0f172a;
   padding: 120px 60px;
-  min-height: 100vh;
-  display: flex;
+  min-height: 110vh;
+  display:block;
   align-items: center;
   width: 100%;
+  border-radius: 40px 40px 0 0;
+  margin-top: -40px;
+  position: relative;
+  z-index: 1;
 }
 
 .bottom-container {
@@ -333,7 +349,7 @@ body {
 
 .number {
   font-size: clamp(4rem, 8vw, 10rem);
-  font-weight: 900;
+  font-weight: 700;
   background: linear-gradient(135deg, #8b5cf6, #3b82f6, #10b981, #f59e0b, #ec4899);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -341,6 +357,7 @@ body {
   margin-bottom: 24px;
   display: block;
   line-height: 1;
+  font-family: 'Inter', sans-serif;
 }
 
 .number-subtitle {
@@ -349,6 +366,7 @@ body {
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
 }
 
 .feature-highlights {
@@ -380,9 +398,10 @@ body {
 .feature-block h3 {
   color: white;
   font-size: clamp(20px, 3vw, 28px);
-  font-weight: 800;
+  font-weight: 600;
   margin-bottom: 20px;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.02em;
+  font-family: 'Inter', sans-serif;
 }
 
 .feature-block p {
@@ -390,6 +409,7 @@ body {
   line-height: 1.7;
   margin-bottom: 20px;
   font-size: 16px;
+  font-family: 'Inter', sans-serif;
 }
 
 .feature-tag {
@@ -400,9 +420,9 @@ body {
   font-size: 14px;
   font-weight: 600;
   display: inline-block;
+  font-family: 'Inter', sans-serif;
 }
 
-/* Quiz Showcase */
 .quiz-showcase {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -430,9 +450,10 @@ body {
 .quiz-card h4 {
   color: #1e293b;
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 20px;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.02em;
+  font-family: 'Inter', sans-serif;
 }
 
 .question-preview {
@@ -447,6 +468,7 @@ body {
   font-weight: 600;
   margin-bottom: 16px;
   font-size: 16px;
+  font-family: 'Inter', sans-serif;
 }
 
 .options {
@@ -460,9 +482,9 @@ body {
   font-size: 14px;
   padding: 6px 0;
   font-weight: 500;
+  font-family: 'Inter', sans-serif;
 }
 
-/* Form Section */
 .form-section {
   background: #1e293b;
   padding: 120px 60px;
@@ -471,6 +493,10 @@ body {
   align-items: center;
   justify-content: center;
   width: 100%;
+  border-radius: 40px 40px 0 0;
+  margin-top: -40px;
+  position: relative;
+  z-index: 1;
 }
 
 .form-container {
@@ -483,8 +509,9 @@ body {
   font-size: clamp(2rem, 4vw, 3.5rem);
   color: white;
   margin-bottom: 20px;
-  font-weight: 800;
-  letter-spacing: -1px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-family: 'Inter', sans-serif;
 }
 
 .form-container > p {
@@ -492,6 +519,7 @@ body {
   font-size: clamp(1rem, 2vw, 1.3rem);
   margin-bottom: 50px;
   line-height: 1.7;
+  font-family: 'Inter', sans-serif;
 }
 
 .form {
@@ -509,10 +537,11 @@ body {
 }
 
 .form-group label {
-  font-weight: 700;
+  font-weight: 600;
   color: white;
   font-size: 1rem;
   letter-spacing: 0.5px;
+  font-family: 'Inter', sans-serif;
 }
 
 .input {
@@ -523,6 +552,7 @@ body {
   transition: all 0.3s ease;
   background: rgba(255, 255, 255, 0.05);
   color: white;
+  font-family: 'Inter', sans-serif;
 }
 
 .input:focus {
@@ -536,7 +566,6 @@ body {
 .input::placeholder {
   color: #64748b;
 }
-
 
 .checkbox-group {
   flex-direction: row;
@@ -552,6 +581,7 @@ body {
   font-weight: 500;
   color: white;
   font-size: 1rem;
+  font-family: 'Inter', sans-serif;
 }
 
 .checkbox-input {
@@ -564,8 +594,8 @@ body {
 .checkbox-text {
   color: white;
   font-weight: 500;
+  font-family: 'Inter', sans-serif;
 }
-
 
 .range-container {
   display: flex;
@@ -635,6 +665,7 @@ body {
   color: #64748b;
   font-size: 0.9rem;
   font-weight: 500;
+  font-family: 'Inter', sans-serif;
 }
 
 .submit-button {
@@ -644,11 +675,12 @@ body {
   padding: 18px 36px;
   border-radius: 12px;
   font-size: 1.2rem;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   margin-top: 10px;
   letter-spacing: 0.5px;
+  font-family: 'Inter', sans-serif;
 }
 
 .submit-button:hover:not(:disabled) {
@@ -662,7 +694,6 @@ body {
   transform: none;
 }
 
-/* Responsive Design - Improved Breakpoints */
 @media (max-width: 1600px) {
   .top-container,
   .bottom-container {
@@ -773,11 +804,9 @@ body {
   }
 }
 
-/* Ultra-wide screen support */
 @media (min-width: 2000px) {
 
   .top-container,
-  
   .bottom-container {
     max-width: 1800px;
     padding: 100px 80px;
@@ -792,13 +821,10 @@ body {
   }
   
   .form-container {
-
     max-width: 1000px;
-
   }
 }
 
-/* Landscape orientation adjustments */
 @media (max-height: 600px) and (orientation: landscape) {
   .top-section,
   .bottom-section {
@@ -812,9 +838,7 @@ body {
   }
 }
 
-/* Fix for iOS Safari viewport issues */
 @supports (-webkit-touch-callout: none) {
-  
   .app {
     min-height: -webkit-fill-available;
   }
@@ -825,7 +849,6 @@ body {
   }
 }
 
-/* Debug Message Styles */
 .debug-message {
   margin-top: 30px;
   padding: 20px;
@@ -889,9 +912,10 @@ body {
 .quiz-header h1 {
 
   font-size: 2.5rem;
-  font-weight: 800;
+  font-weight: 600;
   margin-bottom: 10px;
-  letter-spacing: -1px;
+  letter-spacing: -0.02em;
+  font-family: 'Inter', sans-serif;
 
 }
 
@@ -899,6 +923,7 @@ body {
 
   font-size: 1.1rem;
   opacity: 0.9;
+  font-family: 'Inter', sans-serif;
 
 }
 
@@ -937,8 +962,9 @@ body {
   border-radius: 50%;
   text-align: center;
   line-height: 40px;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 20px;
+  font-family: 'Inter', sans-serif;
 
 }
 
@@ -949,6 +975,7 @@ body {
   color: #1e293b;
   margin-bottom: 25px;
   line-height: 1.6;
+  font-family: 'Inter', sans-serif;
 }
 
 .choices-list {
@@ -968,6 +995,7 @@ body {
   transition: all 0.3s ease;
   font-weight: 500;
   color: #475569;
+  font-family: 'Inter', sans-serif;
 }
 
 .choice-item:hover {
@@ -988,7 +1016,6 @@ body {
   font-weight: 600;
 }
 
-/* Submit Section */
 .submit-section {
   margin-top: 40px;
   text-align: center;
@@ -1001,11 +1028,12 @@ body {
   padding: 18px 36px;
   border-radius: 12px;
   font-size: 1.2rem;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   letter-spacing: 0.5px;
   min-width: 200px;
+  font-family: 'Inter', sans-serif;
 }
 
 .submit-quiz-button:hover:not(:disabled) {
@@ -1024,9 +1052,9 @@ body {
   color: #64748b;
   font-size: 0.9rem;
   font-style: italic;
+  font-family: 'Inter', sans-serif;
 }
 
-/* Submission Success */
 .submission-success {
   text-align: center;
   padding: 40px;
@@ -1036,9 +1064,9 @@ body {
 .submission-success p {
   font-size: 1.2rem;
   color: #475569;
+  font-family: 'Inter', sans-serif;
 }
 
-/* Results Display */
 .results-summary {
   margin-bottom: 40px;
   text-align: center;
@@ -1051,8 +1079,9 @@ body {
 .score-display h2 {
   color: #1e293b;
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 20px;
+  font-family: 'Inter', sans-serif;
 }
 
 .score-circle {
@@ -1070,7 +1099,8 @@ body {
 .score-number {
   color: white;
   font-size: 2rem;
-  font-weight: 800;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
 }
 
 .corrections-section {
@@ -1080,9 +1110,10 @@ body {
 .corrections-section h3 {
   color: #1e293b;
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 30px;
   text-align: center;
+  font-family: 'Inter', sans-serif;
 }
 
 .correction-card {
@@ -1116,6 +1147,7 @@ body {
   border-radius: 20px;
   font-size: 0.9rem;
   font-weight: 600;
+  font-family: 'Inter', sans-serif;
 }
 
 .status-badge.correct {
@@ -1143,12 +1175,14 @@ body {
 .answer-item .label {
   font-weight: 600;
   color: #475569;
+  font-family: 'Inter', sans-serif;
 }
 
 .answer {
   font-weight: 600;
   padding: 4px 12px;
   border-radius: 8px;
+  font-family: 'Inter', sans-serif;
 }
 
 .answer.correct {
@@ -1161,7 +1195,6 @@ body {
   color: white;
 }
 
-/* Loading Animation */
 .loading-skeleton {
   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200% 100%;
@@ -1183,16 +1216,14 @@ body {
   margin-bottom: 30px;
 }
 
-/* Error State */
 .error-message {
   text-align: center;
   padding: 60px 20px;
   color: #ef4444;
   font-size: 1.2rem;
   font-weight: 600;
+  font-family: 'Inter', sans-serif;
 }
-
-/* Responsive Design for Quiz Page */
 @media (max-width: 768px) {
   .quiz-container {
     margin: 0 10px;

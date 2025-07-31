@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import QuizPage from "./QuizPage";
+import logo from './assets/logo.png';
 import './App.css'
+import { apiService } from './api';
 
 function Home() {
-  
   const navigate = useNavigate();
   const [topic, setTopic] = useState('')
   const [field, setField] = useState('')
@@ -14,8 +15,7 @@ function Home() {
   const [message, setMessage] = useState('')
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5000/api/message')
-      .then(res => res.json())
+    apiService.getMessage()
       .then(data => setMessage(data.message))
       .catch(err => console.error(err));
   }, []);
@@ -33,43 +33,25 @@ function Home() {
     setIsLoading(true)
 
     try {
-
-      const res = await fetch('http://127.0.0.1:5000/api/quiz', {
-        
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          field, 
-          topic, 
-          numQuestions, 
-          showGrade 
-        })
-      
+      const { id, quiz } = await apiService.createQuiz({ 
+        field, 
+        topic, 
+        numQuestions, 
+        showGrade 
       })
-      
-      if (!res.ok) throw new Error(`HTTP ${res.status}`)
-      const { id, quiz } = await res.json()
-      
 
       if (quiz && quiz.length > 0 && quiz[0].q.includes("Failed to generate quiz")) {
-
         alert('Failed to generate quiz. Please check your OpenAI API key and try again.')
         return
-
       }
       
       navigate(`/quiz/${id}`, { state: { quiz, showGrade } })
       
     } catch (err) {
-
       console.error(err)
-      
       alert('Failed to generate quiz. Please try again.')
-    
     } finally {
-
       setIsLoading(false)
-
     }
   }
 
@@ -78,10 +60,12 @@ function Home() {
       <section className="top-section">
         <div className="top-container">
           <div className="branding">
-            <div className="brand-icon">TO BE DESIGNED</div>
+            <div className="brand-icon">
+              <img src={logo} alt="QuraAI Logo" className="logo-image" />
+            </div>
             
             <div className="brand-text">
-              <div className="brand-name">QuizAI(Trash Name IK)</div>
+              <div className="brand-name">QuraAI</div>
               <div className="brand-subtitle">For Students & Educators</div>
             </div>
           </div>
@@ -93,9 +77,8 @@ function Home() {
             
             <button className="cta-button">
               <span className="cta-icon">🚀</span>
-              <span>Get Started Free</span>
+              <span>Get Started For Free</span>
             </button>
-            <p>{message}</p>
           </div>
 
           <div className="abstract-shapes">
@@ -119,25 +102,25 @@ function Home() {
                 <div className="category">
                   <h3>Computer Science</h3>
                   <div className="quiz-items">
-                    <div className="quiz-item">Python Fundamentals</div>
-                    <div className="quiz-item">Data Structures</div>
-                    <div className="quiz-item">Algorithms</div>
+                    <a href="/quiz/8b524373-0832-4721-9edd-ad5e3fc1ca4d" className="quiz-item">Python Fundamentals</a>
+                    <a href="/quiz/16387131-e348-49b7-a427-825c7e8baf1b" className="quiz-item">Data Structures</a>
+                    <a href="/quiz/64eca6f2-b943-4246-b8fc-0d65fd1ecb3f" className="quiz-item">Algorithms</a>
                   </div>
                 </div>
                 <div className="category">
                   <h3>History</h3>
                   <div className="quiz-items">
-                    <div className="quiz-item">World War II</div>
-                    <div className="quiz-item">Ancient Rome</div>
-                    <div className="quiz-item">Civil Rights</div>
+                    <a href="/quiz/efc41ded-9b58-49f9-b7b8-b09c6ca117dd" className="quiz-item">World War II</a>
+                    <a href="/quiz/d963572b-f6f9-4114-bd48-58a5249b4226" className="quiz-item">Ancient Rome</a>
+                    <a href="/quiz/59189e7a-1387-4cd6-94fd-c64529973ca1" className="quiz-item">Civil Rights</a>
                   </div>
                 </div>
                 <div className="category">
                   <h3>Science</h3>
                   <div className="quiz-items">
-                    <div className="quiz-item">Chemistry</div>
-                    <div className="quiz-item">Physics</div>
-                    <div className="quiz-item">Biology</div>
+                    <a href="/quiz/c5f81706-c41c-4381-94e4-ae8167f626d1" className="quiz-item">Chemistry</a>
+                    <a href="/quiz/5049dbb8-bcd5-4e42-8765-9d7806379439" className="quiz-item">Physics</a>
+                    <a href="/quiz/f66d7646-1781-42cc-96c8-2a6496a58c71" className="quiz-item">Biology</a>
                   </div>
                 </div>
               </div>
@@ -179,13 +162,10 @@ function Home() {
             </div>
 
             <div className="form-group">
-
               <label htmlFor="numQuestions">Number of Questions: {numQuestions}</label>
               
               <div className="range-container">
-
                 <input
-
                   type="range"
                   id="numQuestions"
                   min="1"
@@ -193,37 +173,25 @@ function Home() {
                   value={numQuestions}
                   onChange={(e) => setNumQuestions(parseInt(e.target.value))}
                   className="range-input"
-
                 />
 
                 <div className="range-labels">
-
                   <span>1</span>
-
                   <span>15</span>
-
                   <span>30</span>
-
                 </div>
-
               </div>
-
             </div>
 
             <div className="form-group checkbox-group">
-
               <label className="checkbox-label">
-
                 <input
-
                   type="checkbox"
                   checked={showGrade}
                   onChange={(e) => setShowGrade(e.target.checked)}
                   className="checkbox-input"
-
                 />
                 <span className="checkbox-text">Show grade after submission</span>
-              
               </label>
             </div>
             

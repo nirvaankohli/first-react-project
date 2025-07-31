@@ -5,6 +5,7 @@ import random, string
 import os, json, uuid, sqlite3
 from dotenv import load_dotenv
 from openai import OpenAI
+from auth import require_api_key, get_api_key
 
 
 load_dotenv()
@@ -18,7 +19,7 @@ DB = "quizzes.db"
 def get_db():
     if "db" not in g:
         g.db = sqlite3.connect(DB)
-        # Updated table schema with new columns
+
         g.db.execute("""
             create table if not exists quizzes(
                 id text primary key, 
@@ -48,14 +49,20 @@ def index():
 
     return "Flask server is running!"
 
-@app.route('/api/message')
+@app.route('/api/key')
+def get_api_key_endpoint():
+    """Endpoint to get the API key for the frontend"""
+    api_key = get_api_key()
+    return jsonify({"api_key": api_key})
 
+@app.route('/api/message')
+@require_api_key
 def get_message():
 
     return jsonify(message='Hello from Flask!')
 
 @app.route("/api/random")
-
+@require_api_key
 def random_data():
 
     payload = {
@@ -67,6 +74,7 @@ def random_data():
     return jsonify(payload)
 
 @app.route("/api/quiz", methods=["POST"])
+@require_api_key
 def create_quiz():
 
     body = request.get_json()
@@ -222,7 +230,7 @@ Example format:
     return jsonify({"id": qid, "quiz": quiz})
 
 @app.route("/api/quiz/<qid>", methods=["GET"])
-
+@require_api_key
 def fetch_quiz(qid):
     db = get_db()
     row = db.execute("select data from quizzes where id=?", (qid,)).fetchone()
@@ -231,6 +239,7 @@ def fetch_quiz(qid):
     return jsonify(json.loads(row[0]))
 
 @app.route("/api/quiz/<qid>/answers", methods=["POST"])
+@require_api_key
 def submit_answers(qid):
     body = request.get_json()
     answers = body.get("answers", [])

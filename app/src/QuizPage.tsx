@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
+import { apiService } from './api';
 
 type Question = {
   q: string;
@@ -8,26 +9,23 @@ type Question = {
 };
 
 type Correction = {
-  
+
   question: string;
   userAnswer: number;
   correctAnswer: number;
   isCorrect: boolean;
   choices: string[];
-
+  
 };
 
 type QuizResult = {
-
   score: number;
   total: number;
   percentage: number;
   corrections: Correction[];
-
 };
 
 export default function QuizPage() {
-
   const { state } = useLocation();
   const { id } = useParams();
   const [quiz, setQuiz] = useState<Question[] | null>(state?.quiz || null);
@@ -39,63 +37,37 @@ export default function QuizPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-
     if (quiz) return;
     
     const fetchQuiz = async () => {
-
       try {
-
-        const res = await fetch(`http://127.0.0.1:5000/api/quiz/${id}`);
-
-        if (!res.ok) throw new Error(`status ${res.status}`);
-
-        const data = await res.json();
+        const data = await apiService.fetchQuiz(id!);
         setQuiz(data);
         setAnswers(new Array(data.length).fill(-1)); 
-
       } catch (err: any) {
-
         console.error(err);
-
         setError("Failed to load quiz");
-
       }
     };
     fetchQuiz();
   }, [id, quiz]);
 
   const handleAnswerChange = (questionIndex: number, answerIndex: number) => {
-
     const newAnswers = [...answers];
     newAnswers[questionIndex] = answerIndex;
     setAnswers(newAnswers);
-
   };
 
   const handleSubmit = async () => {
-
     if (answers.some(answer => answer === -1)) {
-
       alert('Please answer all questions before submitting.');
-
       return;
-
     }
 
     setIsSubmitting(true);
 
     try {
-
-      const res = await fetch(`http://127.0.0.1:5000/api/quiz/${id}/answers`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ answers })
-      });
-
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      
-      const data = await res.json();
+      const data = await apiService.submitAnswers(id!, answers);
       
       if (showGrade) {
         setResult(data);
@@ -113,7 +85,6 @@ export default function QuizPage() {
   const canSubmit = quiz && answers.every(answer => answer !== -1);
 
   if (error) return (
-    
     <div className="quiz-page">
       <div className="quiz-container">
         <div className="error-message">{error}</div>
@@ -122,9 +93,7 @@ export default function QuizPage() {
   );
 
   if (!quiz)
-
     return (
-
       <div className="quiz-page">
         <div className="quiz-container">
           <div className="quiz-header">
@@ -141,9 +110,7 @@ export default function QuizPage() {
     );
 
   if (isSubmitted && !showGrade) {
-
     return (
-      
       <div className="quiz-page">
         <div className="quiz-container">
           <div className="quiz-header">
@@ -157,7 +124,6 @@ export default function QuizPage() {
           </div>
         </div>
       </div>
-
     );
   }
 
